@@ -52,13 +52,40 @@ const addBooksHandler = (request, h) => {
 
 
 const getAllBooksHandler = (request, h) => {
+    const { name, reading, finished } = request.query;
+  
+    // Membuat salinan array books untuk menghindari perubahan data asli
+    let filteredBooks = [...books];
+  
+    // Filter berdasarkan nama (non-case sensitive)
+    if (name) {
+      const lowerCaseName = name.toLowerCase();
+      filteredBooks = filteredBooks.filter((book) =>
+        book.name.toLowerCase().includes(lowerCaseName)
+      );
+    }
+  
+    // Filter berdasarkan status reading (0 atau 1)
+    if (reading !== undefined) {
+      const isReading = reading === '1';
+      filteredBooks = filteredBooks.filter((book) => book.reading === isReading);
+    }
+  
+    // Filter berdasarkan status finished (0 atau 1)
+    if (finished !== undefined) {
+      const isFinished = finished === '1';
+      filteredBooks = filteredBooks.filter((book) => book.finished === isFinished);
+    }
+  
     const response = h.response({
       status: 'success',
-      data: books,
+      data: {
+        books: filteredBooks,
+      },
     });
     response.code(200);
     return response;
-};
+  };
 
 const getBookByIdHandler = (request, h) => {
     const { id } = request.params; // Gunakan request.params untuk mengambil parameter 'id'
