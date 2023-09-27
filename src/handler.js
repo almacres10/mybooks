@@ -8,8 +8,8 @@ const addBooksHandler = (request, h) => {
     const id = nanoid(16);
     const insertedAt = new Date().toISOString();
 
-      // Periksa apakah readpage lebih besar dari pageCount
-    if (readpage > pageCount) {
+      // Periksa apakah readPage lebih besar dari pageCount
+    if (readPage > pageCount) {
     const response = h.response({
         status: 'fail',
         message: 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount',
