@@ -60,10 +60,10 @@ const getAllBooksHandler = (request, h) => {
     return response;
 };
 
-const getBookByIdHandler = () => {
-    const { id } = request.params;
-    const selectedBook = books.filter((book) => book.id === id)[0];
-
+const getBookByIdHandler = (request, h) => {
+    const { id } = request.params; // Gunakan request.params untuk mengambil parameter 'id'
+    const selectedBook = books.find((book) => book.id === id); // Gunakan .find() untuk mencari buku berdasarkan ID
+  
     if (selectedBook !== undefined) {
       return {
         status: 'success',
@@ -79,7 +79,7 @@ const getBookByIdHandler = () => {
     });
     response.code(404);
     return response;
-};
+  };
   
 
 const editBookByIdHandler = (request, h) => {
