@@ -107,7 +107,6 @@ const getBookByIdHandler = (request, h) => {
   
 
 const editBookByIdHandler = (request, h) => {
-    try {
       const { bookId } = request.params;
   
       const { name, year, author, summary, publisher, pageCount, readPage, finished, reading, insertedAt } = request.payload;    
@@ -160,18 +159,10 @@ const editBookByIdHandler = (request, h) => {
   
       const response = h.response({
         status: 'fail',
-        message: 'Gagal memperbarui buku. readPage tidak ditemukan',
+        message: 'Gagal memperbarui buku. id tidak ditemukan',
       });
       response.code(404);
       return response;
-    } catch (error) {
-      const response = h.response({
-        status: 'error',
-        message: 'Terjadi kesalahan pada server',
-      });
-      response.code(500);
-      return response;
-    }
   };
   
   const deleteBooksByHandler = (request, h) => {
