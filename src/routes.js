@@ -1,4 +1,5 @@
 const {addBooksHandler, getAllBooksHandler, getBookByIdHandler, editBookByIdHandler, deleteBooksByHandler} = require('./handler');
+const Joi = require('@hapi/joi');
 
 const routes = [
   {
@@ -13,8 +14,10 @@ const routes = [
     options: {
       validate: {
         query: {
-          name: Joi.string().min(1).optional(),
-        },
+            name: Joi.string().min(1).optional(),
+            reading: Joi.string().valid('0', '1').optional(),
+            finished: Joi.string().valid('0', '1').optional(),
+          },
       },
     },
   },
