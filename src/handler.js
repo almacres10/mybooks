@@ -95,7 +95,7 @@ const getBookByIdHandler = (request, h) => {
         status: 'success',
         data: {
           book: {
-            Id: newBooks.bookId,
+            Id: selectedBook.bookId,
           }
         },
       };
