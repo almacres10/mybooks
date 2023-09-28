@@ -53,13 +53,16 @@ const addBooksHandler = (request, h) => {
 
 
 const getAllBooksHandler = (request, h) => {
-  const successBooks = books
+  const successBooks = books;
+  const booksData = successBooks.map((book) => ({
+    bookId: book.id,
+    name: book.name,
+    author: book.author,
+  }));
   const response = h.response({
     status: 'success',
     data: {
-      bookId: successBooks.bookId,
-      name: successBooks.name,
-      author: successBooks.author
+      books: booksData,
     },
   });
   response.code(200);
