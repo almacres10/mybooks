@@ -5,7 +5,7 @@ const books = require('./books')
 const addBooksHandler = (request, h) => {
     const { name, year, author, summary, publisher, 
         pageCount, readPage, reading } = request.payload;
-    const id = nanoid(16);
+    const bookId = nanoid(16);
     const insertedAt = new Date().toISOString();
 
       // Periksa apakah readPage lebih besar dari pageCount
@@ -23,7 +23,7 @@ const addBooksHandler = (request, h) => {
 
     const newBooks = {
         name, year, author, summary, publisher, 
-        pageCount, readPage, reading, id, insertedAt, finished, updatedAt
+        pageCount, readPage, reading, bookId, insertedAt, finished, updatedAt
     };
 
     books.push(newBooks)
@@ -42,7 +42,7 @@ const addBooksHandler = (request, h) => {
         status: 'success',
         message: 'Buku berhasil ditambahkan',
         data: {
-            id: newBooks.id,
+            bookId: newBooks.bookId,
         },
     });
     response.code(201);
@@ -52,40 +52,13 @@ const addBooksHandler = (request, h) => {
 
 
 const getAllBooksHandler = (request, h) => {
-    const { name, reading, finished } = request.query;
-  
-    // Membuat salinan array books untuk menghindari perubahan data asli
-    let filteredBooks = [...books];
-  
-    // Filter berdasarkan nama (non-case sensitive)
-    if (name) {
-      const lowerCaseName = name.toLowerCase();
-      filteredBooks = filteredBooks.filter((book) =>
-        book.name.toLowerCase().includes(lowerCaseName)
-      );
-    }
-  
-    // Filter berdasarkan status reading (0 atau 1)
-    if (reading !== undefined) {
-      const isReading = reading === '1';
-      filteredBooks = filteredBooks.filter((book) => book.reading === isReading);
-    }
-  
-    // Filter berdasarkan status finished (0 atau 1)
-    if (finished !== undefined) {
-      const isFinished = finished === '1';
-      filteredBooks = filteredBooks.filter((book) => book.finished === isFinished);
-    }
-  
-    const response = h.response({
-      status: 'success',
-      data: {
-        books: filteredBooks,
-      },
-    });
-    response.code(200);
-    return response;
-  };
+  const response = h.response({
+    status: 'success',
+    data: books,
+  });
+  response.code(200);
+  return response;
+};
 
 const getBookByIdHandler = (request, h) => {
     const { id } = request.params; // Gunakan request.params untuk mengambil parameter 'id'
