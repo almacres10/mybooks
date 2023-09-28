@@ -57,7 +57,7 @@ const getAllBooksHandler = (request, h) => {
   const booksData = successBooks.map((book) => ({
     id: book.bookId,
     name: book.name,
-    author: book.author,
+    publisher: book.publisher,
   }));
   const response = h.response({
     status: 'success',
@@ -74,12 +74,27 @@ const getAllBooksHandler = (request, h) => {
 const getBookByIdHandler = (request, h) => {
     const { bookId } = request.params; 
     const selectedBook = books.find((book) => book.bookId === bookId);
+
+    const booksData = selectedBook.map((book) => ({
+      id: book.bookId,
+      name: book.name,
+      year: book.year,
+      author: book.author,
+      summary: book.summary,
+      publisher: book.publisher,
+      pageCount : book.pageCount,
+      readPage : book.readPage,
+      finished : book.finished,
+      reading : book.reading,
+      insertedAt : book.insertedAt,
+      updatedAt : book.updatedAt
+    }));
   
     if (selectedBook !== undefined) {
       return {
         status: 'success',
         data: {
-          book: selectedBook,
+          book: booksData,
         },
       };
     }
@@ -97,7 +112,7 @@ const editBookByIdHandler = (request, h) => {
     try {
       const { bookId } = request.params;
   
-      const { name, year, author, summary, publisher, pageCount, readPage, reading } = request.payload;    
+      const { name, year, author, summary, publisher, pageCount, readPage, finished, reading, insertedAt } = request.payload;    
       const updatedAt = new Date().toISOString();
   
       const index = books.findIndex((book) => book.bookId === bookId);
@@ -126,11 +141,14 @@ const editBookByIdHandler = (request, h) => {
           ...books[index],
           name,
           year,
+          author,
           summary,
           publisher,
           pageCount,
           readPage,
+          finished,
           reading,
+          insertedAt,
           updatedAt,
         };
         
@@ -146,7 +164,7 @@ const editBookByIdHandler = (request, h) => {
         status: 'fail',
         message: 'Gagal memperbarui buku. Id tidak ditemukan',
       });
-      response.code(404);
+      response.code(400);
       return response;
     } catch (error) {
       const response = h.response({
