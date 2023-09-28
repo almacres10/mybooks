@@ -1,5 +1,5 @@
 const {addBooksHandler, getAllBooksHandler, getBookByIdHandler, editBookByIdHandler, deleteBooksByHandler} = require('./handler');
-const Joi = require('@hapi/joi');
+const Joi = require('joi');
 
 const routes = [
   {
