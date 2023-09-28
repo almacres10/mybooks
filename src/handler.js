@@ -75,26 +75,28 @@ const getBookByIdHandler = (request, h) => {
     const { bookId } = request.params; 
     const selectedBook = books.find((book) => book.bookId === bookId);
 
-    const booksData = selectedBook.map((book) => ({
-      id: book.bookId,
-      name: book.name,
-      year: book.year,
-      author: book.author,
-      summary: book.summary,
-      publisher: book.publisher,
-      pageCount : book.pageCount,
-      readPage : book.readPage,
-      finished : book.finished,
-      reading : book.reading,
-      insertedAt : book.insertedAt,
-      updatedAt : book.updatedAt
-    }));
+    // const booksData = selectedBook.map((book) => ({
+    //   id: book.bookId,
+    //   name: book.name,
+    //   year: book.year,
+    //   author: book.author,
+    //   summary: book.summary,
+    //   publisher: book.publisher,
+    //   pageCount : book.pageCount,
+    //   readPage : book.readPage,
+    //   finished : book.finished,
+    //   reading : book.reading,
+    //   insertedAt : book.insertedAt,
+    //   updatedAt : book.updatedAt
+    // }));
   
     if (selectedBook !== undefined) {
       return {
         status: 'success',
         data: {
-          book: booksData,
+          book: {
+            Id: newBooks.bookId,
+          }
         },
       };
     }
