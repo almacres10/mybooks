@@ -18,6 +18,15 @@ const addBooksHandler = (request, h) => {
     return response;
     }
 
+    if (!name) {
+        const response = h.response({
+            status: 'fail',
+            message: 'Gagal menambahkan buku. Mohon isi nama buku',
+        });
+        response.code(400);
+        return response;
+    }
+
     const finished = pageCount === readPage;
     const updatedAt = insertedAt;
 
@@ -27,16 +36,6 @@ const addBooksHandler = (request, h) => {
     };
 
     books.push(newBooks)
-
-
-    if (!name) {
-        const response = h.response({
-            status: 'fail',
-            message: 'Gagal menambahkan buku. Mohon isi nama buku',
-        });
-        response.code(400);
-        return response;
-    }
     
     const response = h.response({
         status: 'success',
@@ -55,7 +54,9 @@ const getAllBooksHandler = (request, h) => {
   const response = h.response({
     status: 'success',
     data: {
-      books: books, // Atau bisa juga ditulis sebagai: books
+      bookId: newBooks.bookId,
+      name: newBooks.name,
+      author: newBooks.author
     },
   });
   response.code(200);
