@@ -7,8 +7,9 @@ const addBooksHandler = (request, h) => {
         pageCount, readPage, reading } = request.payload;
     const bookId = nanoid(16);
     const insertedAt = new Date().toISOString();
+    const finished = pageCount === readPage;
+    const updatedAt = insertedAt;
 
-      // Periksa apakah readPage lebih besar dari pageCount
     if (readPage > pageCount) {
     const response = h.response({
         status: 'fail',
@@ -18,7 +19,7 @@ const addBooksHandler = (request, h) => {
     return response;
     }
 
-    if (!name) {
+    else if (!name) {
         const response = h.response({
             status: 'fail',
             message: 'Gagal menambahkan buku. Mohon isi nama buku',
@@ -27,9 +28,7 @@ const addBooksHandler = (request, h) => {
         return response;
     }
 
-    const finished = pageCount === readPage;
-    const updatedAt = insertedAt;
-
+    else {
     const newBooks = {
         name, year, author, summary, publisher, 
         pageCount, readPage, reading, bookId, insertedAt, finished, updatedAt
@@ -44,19 +43,23 @@ const addBooksHandler = (request, h) => {
             bookId: newBooks.bookId,
         },
     });
+    
+    
     response.code(201);
     return response;
+  }
     
 };
 
 
 const getAllBooksHandler = (request, h) => {
+  const successBooks = books
   const response = h.response({
     status: 'success',
     data: {
-      bookId: newBooks.bookId,
-      name: newBooks.name,
-      author: newBooks.author
+      bookId: books.bookId,
+      name: books.name,
+      author: books.author
     },
   });
   response.code(200);
