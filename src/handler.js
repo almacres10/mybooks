@@ -54,11 +54,15 @@ const addBooksHandler = (request, h) => {
 const getAllBooksHandler = (request, h) => {
   const response = h.response({
     status: 'success',
-    data: books,
+    data: {
+      books: books, // Atau bisa juga ditulis sebagai: books
+    },
   });
   response.code(200);
   return response;
 };
+
+
 
 const getBookByIdHandler = (request, h) => {
     const { id } = request.params; // Gunakan request.params untuk mengambil parameter 'id'
