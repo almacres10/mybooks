@@ -95,7 +95,18 @@ const getBookByIdHandler = (request, h) => {
         status: 'success',
         data: {
           book: {
-            Id: selectedBook.bookId,
+            id: selectedBook.bookId,
+            name: selectedBook.name,
+            year: selectedBook.year,
+            author: selectedBook.author,
+            summary: selectedBook.summary,
+            publisher: selectedBook.publisher,
+            pageCount: selectedBook.pageCount,
+            readPage: selectedBook.readPage,
+            finished: selectedBook.finished,
+            reading: selectedBook.reading,
+            insertedAt: selectedBook.insertedAt,
+            updatedAt: selectedBook.updatedAt
           }
         },
       };
@@ -166,7 +177,7 @@ const editBookByIdHandler = (request, h) => {
         status: 'fail',
         message: 'Gagal memperbarui buku. Id tidak ditemukan',
       });
-      response.code(400);
+      response.code(404);
       return response;
     } catch (error) {
       const response = h.response({
