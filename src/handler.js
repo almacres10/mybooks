@@ -57,9 +57,9 @@ const getAllBooksHandler = (request, h) => {
   const response = h.response({
     status: 'success',
     data: {
-      bookId: books.bookId,
-      name: books.name,
-      author: books.author
+      bookId: successBooks.bookId,
+      name: successBooks.name,
+      author: successBooks.author
     },
   });
   response.code(200);
