@@ -199,7 +199,7 @@ const editBookByIdHandler = (request, h) => {
       books.splice(index, 1);
   
       const bookData = {
-        id: deletedBook.id,
+        id: deletedBook.bookId,
         name: deletedBook.name,
         publisher: deletedBook.publisher,
       };
