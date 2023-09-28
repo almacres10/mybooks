@@ -152,6 +152,9 @@ const editBookByIdHandler = (request, h) => {
         const response = h.response({
           status: 'success',
           message: 'Buku berhasil diperbarui',
+          data: {
+            books: books
+          }
         });
         response.code(200);
         return response;
