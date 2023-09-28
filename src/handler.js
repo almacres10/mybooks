@@ -55,7 +55,7 @@ const addBooksHandler = (request, h) => {
 const getAllBooksHandler = (request, h) => {
   const successBooks = books;
   const booksData = successBooks.map((book) => ({
-    bookId: book.bookId,
+    id: book.bookId,
     name: book.name,
     author: book.author,
   }));
