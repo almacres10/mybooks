@@ -175,13 +175,6 @@ const editBookByIdHandler = (request, h) => {
       const response = h.response({
         status: 'success',
         message: 'Buku berhasil dihapus',
-        data: {
-          books:{
-            id: book.bookId,
-            name: book.name,
-            publisher: book.publisher,
-          }
-        }
       });
       response.code(200);
       return response;
