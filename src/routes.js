@@ -14,10 +14,10 @@ const routes = [
     options: {
       validate: {
         query: Joi.object({
-            name: Joi.string().min(1).optional(),
-            reading: Joi.string().valid('0', '1').optional(),
-            finished: Joi.string().valid('0', '1').optional(),
-          })
+          name: Joi.string().min(1).optional(),
+          reading: Joi.string().valid('0', '1').optional(),
+          finished: Joi.string().valid('0', '1').optional(),
+        }),
       },
     },
   },

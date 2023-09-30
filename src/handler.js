@@ -1,7 +1,6 @@
 const {nanoid} = require('nanoid');
 const books = require('./books');
 
-
 const addBooksHandler = (request, h) => {
   const {name, year, author, summary, publisher,
     pageCount, readPage, reading} = request.payload;
@@ -115,7 +114,7 @@ const getBookByIdHandler = (request, h) => {
 const editBookByIdHandler = (request, h) => {
   const {bookId} = request.params;
 
-  const {name, year, author, summary, publisher, pageCount, readPage, finished, reading, insertedAt} = request.payload;
+  const {name, year, author, summary, publisher, pageCount, readPage, reading} = request.payload;
   const updatedAt = new Date().toISOString();
 
   const index = books.findIndex((book) => book.bookId === bookId);
@@ -139,6 +138,8 @@ const editBookByIdHandler = (request, h) => {
       return response;
     }
 
+    const finished = pageCount === readPage;
+
     books[index] = {
       ...books[index],
       name,
@@ -150,7 +151,6 @@ const editBookByIdHandler = (request, h) => {
       readPage,
       finished,
       reading,
-      insertedAt,
       updatedAt,
     };
 
